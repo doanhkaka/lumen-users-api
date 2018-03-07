@@ -21,6 +21,15 @@ Steps:
    
        cp .env.example .env
        
+Please edit database name, database username, and database password if needed.
+
+        DB_CONNECTION=mysql
+        DB_HOST=localhost
+        DB_PORT=3306
+        DB_DATABASE=database
+        DB_USERNAME=username
+        DB_PASSWORD=password
+       
 5. Run the database migrations (**Set the database connection in .env before migrating**)
 
         php artisan migrate
@@ -49,3 +58,14 @@ You can test the API using [Postman](https://www.getpostman.com/).
 | PUT           | /users    | update    | name, address, tel| x-api-key (required)  |
 
 In order to update a user, you must send request header `x-api-key`, you can get it in `api_token` column in `users` table.
+
+## Running the tests
+
+1. Create a database for testing purpose, then declare its name in `phpunit.xml`
+
+        <env name="DB_DATABASE" value="db_testing"/>
+
+2. At root folder, run this command:
+
+        vendor/bin/phpunit
+        
