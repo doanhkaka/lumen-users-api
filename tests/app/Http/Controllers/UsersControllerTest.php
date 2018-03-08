@@ -37,6 +37,46 @@ class UsersControllerTest extends TestCase
         }
     }
 
+    public function testShowShouldReturnAValidUser()
+    {
+        $user = factory(User::class)->create();
+
+        $this->get("/api/users/{$user->id}")
+            ->seeStatusCode(200);
+
+        $content = json_decode($this->response->getContent(), true);
+        $this->assertArrayHasKey('data', $content);
+
+        $data = $content['data'];
+        $this->assertEquals($user->id, $data['id']);
+        $this->assertEquals($user->email, $data['email']);
+        $this->assertEquals($user->name, $data['name']);
+        $this->assertEquals($user->address, $data['address']);
+        $this->assertEquals($user->tel, $data['tel']);
+        $this->assertEquals($user->created_at->toIso8601String(), $data['created']);
+        $this->assertEquals($user->updated_at->toIso8601String(), $data['updated']);
+    }
+
+    public function testShowShouldFailWhenUserIdDoesNotExist()
+    {
+        $this->get('/api/users/99999999', ['Accept' => 'application/json'])
+            ->seeStatusCode(404)
+            ->seeJson([
+                'message' => 'Not Found',
+            ]);
+    }
+
+    public function testShowRouteShouldNotMatchAnInvalidRoute()
+    {
+        $this->get('/api/users/invalid-user-id');
+
+        $this->assertNotRegExp(
+            '/Not Found/',
+            $this->response->getContent(),
+            'UsersController@show route matching when it should not.'
+        );
+    }
+
     public function testUpdateShouldOnlyChangeFillableFields()
     {
         $user = factory(User::class)->create([

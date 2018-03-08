@@ -3,6 +3,7 @@
 namespace App\Http\Response;
 
 use League\Fractal\Manager;
+use League\Fractal\Pagination\Cursor;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
 use League\Fractal\Resource\Collection;
@@ -35,13 +36,13 @@ class FractalResponse
         );
     }
 
-    public function collection($data, TransformerAbstract $transformer, $resourceKey = null)
+    public function collection($data, TransformerAbstract $transformer, $resourceKey = null, $currentCursor = null, $previousCursor = null)
     {
+        $newCursor = $data->last()->id;
+        $cursor = new Cursor($currentCursor, $previousCursor, $newCursor, $data->count());
+
         $collection = new Collection($data, $transformer, $resourceKey);
-        $collection->setMeta([
-            'success' => 1,
-            'count' => count($data),
-        ]);
+        $collection->setCursor($cursor);
 
         return $this->createDataArray($collection);
     }

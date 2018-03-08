@@ -16,6 +16,7 @@ $app->get('/', function () use ($app) {
 });
 
 $app->get('/api/users', 'UsersController@index');
+$app->get('/api/users/{id:[\d]+}', 'UsersController@show');
 $app->put('/api/users', [
     'middleware' => 'auth|log',
     'uses' => 'UsersController@update'

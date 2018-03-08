@@ -23,8 +23,8 @@ class Controller extends BaseController
         return $this->fractal->item($data, $transformer, $resourceKey);
     }
 
-    public function collection($data, TransformerAbstract $transformer, $resourceKey = null)
+    public function collection($data, TransformerAbstract $transformer, $resourceKey = null, $currentCursor = null, $previousCursor = null)
     {
-        return $this->fractal->collection($data, $transformer, $resourceKey);
+        return $this->fractal->collection($data, $transformer, $resourceKey, $currentCursor, $previousCursor);
     }
 }
