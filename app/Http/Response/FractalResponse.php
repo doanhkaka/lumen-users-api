@@ -37,9 +37,13 @@ class FractalResponse
 
     public function collection($data, TransformerAbstract $transformer, $resourceKey = null)
     {
-        return $this->createDataArray(
-            new Collection($data, $transformer, $resourceKey)
-        );
+        $collection = new Collection($data, $transformer, $resourceKey);
+        $collection->setMeta([
+            'success' => 1,
+            'count' => count($data),
+        ]);
+
+        return $this->createDataArray($collection);
     }
 
     private function createDataArray(ResourceInterface $resource)
