@@ -65,6 +65,12 @@ You can test the API using [Postman](https://www.getpostman.com/).
 | GET           | /api/users/{id}   | show      |                   | None                  |
 | PUT           | /api/users        | update    | name, address, tel| x-api-key (required)  |
 
+cURL examples:
+
+        curl -i -H "Accept: application/json" http://localhost:8000/api/users
+        curl -i -H "Accept: application/json" http://localhost:8000/api/users/1
+        curl -d "name=value1&address=value2&tel=value3" -H "Content-Type: application/x-www-form-urlencoded" -H "Accept: application/json" -H "x-api-key: 6LkQbFICDBJRCKxfdMWCE11HJwBfMxZX2Kz3atvdQkmoKU7sEVkni8F05JQt" -X PUT http://localhost:8000/api/users
+
 ## Pagination
 
 Example Usages:
