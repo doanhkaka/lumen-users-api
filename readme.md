@@ -72,6 +72,11 @@ Example Usages:
         GET /api/users?cursor=5&limit=5
         GET /api/users?cursor=10&previous=5&limit=5
 
+- Set `cursor` to `next` from the last response
+- Set `previous` to `current` from the last response
+- `limit` is optional
+
+
 ## Security
 
 For demonstration purpose, I added authentication layer to `update` api. 
