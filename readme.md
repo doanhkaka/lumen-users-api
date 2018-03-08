@@ -52,10 +52,10 @@ The api can now be accessed at:
         
 You can test the API using [Postman](https://www.getpostman.com/).
 
-| HTTP Method	| Path      | Action    | Fields            | Request headers       |
-| -----         | -----     | -----     | -------------     | ---------             |
-| GET           | /users    | index     |                   | None                  |
-| PUT           | /users    | update    | name, address, tel| x-api-key (required)  |
+| HTTP Method	| Path       | Action    | Fields            | Request headers       |
+| -----         | -----      | -----     | -------------     | ---------             |
+| GET           | /api/users | index     |                   | None                  |
+| PUT           | /api/users | update    | name, address, tel| x-api-key (required)  |
 
 In order to update a user, you must send request header `x-api-key`, you can get it in `api_token` column in `users` table.
 
