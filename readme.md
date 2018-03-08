@@ -2,6 +2,13 @@
 
 A RESTful API based on Lumen micro-framework.
 
+## Reasons
+
+The reasons why I picked Lumen framework for this test are:
+
+1. We shouldn't build everything from scratch when framework will help us a lot from troublesome.
+2. Lumen is the stunningly fast micro-framework by Laravel, I love Laravel for your information
+
 ## Installation
 
 Steps:
@@ -63,7 +70,7 @@ You can test the API using [Postman](https://www.getpostman.com/).
 Example Usages:
 
         GET /api/users?cursor=5&limit=5
-        GET /books?cursor=10&previous=5&limit=5
+        GET /api/users?cursor=10&previous=5&limit=5
 
 ## Security
 
