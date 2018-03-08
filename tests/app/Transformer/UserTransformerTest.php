@@ -25,6 +25,7 @@ class UserTransformerTest extends TestCase
 
         $transform = $subject->transform($user);
 
+        $this->assertArrayHasKey('id', $transform);
         $this->assertArrayHasKey('email', $transform);
         $this->assertArrayHasKey('name', $transform);
         $this->assertArrayHasKey('address', $transform);

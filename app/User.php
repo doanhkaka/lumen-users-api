@@ -14,12 +14,6 @@ class User extends Model implements
 {
     use Authenticatable, Authorizable;
 
-    protected $primaryKey = 'email';
-
-    protected $keyType = 'string';
-
-    public $incrementing = false;
-
     /**
      * The attributes that are mass assignable.
      *

@@ -26,6 +26,7 @@ class UsersControllerTest extends TestCase
 
         foreach ($users as $user) {
             $this->seeJson([
+                'id'        => $user->id,
                 'email'     => $user->email,
                 'name'      => $user->name,
                 'address'   => $user->address,
