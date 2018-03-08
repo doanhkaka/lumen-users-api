@@ -34,15 +34,15 @@ Please edit database name, database username, and database password if needed.
 
         php artisan migrate
 
-6. Start the local development server
+6. Run the database seeder and you're done
+   
+        php artisan db:seed
+
+7. Start the local development server
 
         php -S localhost:8000 -t public
 
 You can now access the server at http://localhost:8000
-
-7. Run the database seeder and you're done
-   
-        php artisan db:seed
 
 ## Routing
 
@@ -52,12 +52,24 @@ The api can now be accessed at:
         
 You can test the API using [Postman](https://www.getpostman.com/).
 
-| HTTP Method	| Path       | Action    | Fields            | Request headers       |
-| -----         | -----      | -----     | -------------     | ---------             |
-| GET           | /api/users | index     |                   | None                  |
-| PUT           | /api/users | update    | name, address, tel| x-api-key (required)  |
+| HTTP Method	| Path              | Action    | Fields            | Request headers       |
+| -----         | -----             | -----     | -------------     | ---------             |
+| GET           | /api/users        | index     |                   | None                  |
+| GET           | /api/users/{id}   | show      |                   | None                  |
+| PUT           | /api/users        | update    | name, address, tel| x-api-key (required)  |
 
+## Pagination
+
+Example Usages:
+
+        GET /api/users?cursor=5&limit=5
+        GET /books?cursor=10&previous=5&limit=5
+
+## Security
+
+For demonstration purpose, I added authentication layer to `update` api. 
 In order to update a user, you must send request header `x-api-key`, you can get it in `api_token` column in `users` table.
+Otherwise you'll get `401 Unauthorized` response.
 
 ## Running the tests
 
