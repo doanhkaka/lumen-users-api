@@ -17,9 +17,12 @@ class UsersControllerTest extends TestCase
 
     public function testIndexShouldReturnACollectionOfRecords()
     {
-        $users = factory(User::class, 2) ->create();
+        $users = factory(User::class, 2)->create();
 
         $this->get('/api/users');
+
+        $content = json_decode($this->response->getContent(), true);
+        $this->assertArrayHasKey('data', $content);
 
         foreach ($users as $user) {
             $this->seeJson([
@@ -27,6 +30,8 @@ class UsersControllerTest extends TestCase
                 'name'      => $user->name,
                 'address'   => $user->address,
                 'tel'       => $user->tel,
+                'created'   => $user->created_at->toIso8601String(),
+                'updated'   => $user->updated_at->toIso8601String(),
             ]);
         }
     }
@@ -62,11 +67,27 @@ class UsersControllerTest extends TestCase
                 'address' => 'Another Address',
                 'tel' => 'Another Phone Number',
             ]);
+
+        // Verify the data key in the resource
+        $body = json_decode($this->response->getContent(), true);
+        $this->assertArrayHasKey('data', $body);
+    }
+
+    public function testUpdateShouldFailWithAnEmptyToken()
+    {
+        $this->put("/api/users")
+            ->seeStatusCode(401)
+            ->seeJson([
+                'error' => 'Unauthorized'
+            ]);
     }
 
     public function testUpdateShouldFailWithAnInvalidToken()
     {
-        $this->put("/api/users")
+        $this->put("/api/users", [], [
+            'Accept' => 'application/json',
+            'x-api-key' => 'not-exist-api-token'
+        ])
             ->seeStatusCode(401)
             ->seeJson([
                 'error' => 'Unauthorized'

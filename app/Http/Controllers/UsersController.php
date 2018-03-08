@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
+use App\Transformer\UserTransformer;
 
-class UsersController
+class UsersController extends Controller
 {
     public function index()
     {
-        return User::all();
+        return $this->collection(User::all(), new UserTransformer());
     }
 
     public function update(Request $request)
@@ -20,6 +21,6 @@ class UsersController
         $user->fill($request->all());
         $user->save();
 
-        return $user;
+        return $this->item($user, new UserTransformer());
     }
 }
