@@ -89,6 +89,12 @@ For demonstration purpose, I added authentication layer to `update` api.
 In order to update a user, you must send request header `x-api-key`, you can get it in `api_token` column in `users` table.
 Otherwise you'll get `401 Unauthorized` response.
 
+## Monitoring
+
+I logged every incoming `update` requests for monitoring purpose. Example:
+
+        [2018-03-08 13:59:27] lumen.INFO: ApiRequest {"url":"/api/users","method":"PUT","ip":"127.0.0.1","headers":{"host":["localhost:8000"],"user-agent":["curl/7.47.0"],"accept":["*/*"],"content-type":["application/x-www-form-urlencoded"],"x-api-key":["6LkQbFICDBJRCKxfdMWCE11HJwBfMxZX2Kz3atvdQkmoKU7sEVkni8F05JQt"],"content-length":["37"]},"request":{"name":"value1","address":"value2","tel":"value3"}}
+
 ## Running the tests
 
 1. Create a database for testing purpose, then declare its name in `phpunit.xml`
